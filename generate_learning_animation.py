@@ -55,9 +55,8 @@ def main():
         images = Gs.run(latents, None, truncation_psi=0.7, randomize_noise=False, output_transform=fmt)
 
         # Save image.
-        output_dir = os.path,join(result_dir, 'generated_learning')
-        os.makedirs(output_dir, exist_ok=True)
-        png_filename = os.path.join(output_dir, 'frame_{}.png'.format(i))
+        os.makedirs('results/generated', exist_ok=True)
+        png_filename = os.path.join('results/generated', 'frame_{}.png'.format(i))
         PIL.Image.fromarray(images[0], 'RGB').save(png_filename)
 
         # prevent memory leak

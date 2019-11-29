@@ -53,7 +53,7 @@ def main():
     latent_vector1 = rnd.randn(1, Gs.input_shape[1])
     latent_vector2 = rnd.randn(1, Gs.input_shape[1])
 
-    number_of_frames = 240
+    number_of_frames = 480
 
     frame_step = 1.0/number_of_frames
     x = 0

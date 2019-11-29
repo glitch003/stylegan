@@ -61,6 +61,7 @@ def main():
 
     for i in range(total_runs):
 
+        latent_input = None
         x = 0
         for frame_count in range(1,number_of_frames):
             print("generating frame {}".format(total_frames))
@@ -84,7 +85,7 @@ def main():
 
             total_frames += 1
 
-        latent_vector1 = latent_vector2.copy()
+        latent_vector1 = latent_input.copy()
         latent_vector2 = rnd.randn(1, Gs.input_shape[1])
 
 if __name__ == "__main__":

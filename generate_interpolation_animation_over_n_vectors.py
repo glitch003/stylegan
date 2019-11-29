@@ -61,7 +61,7 @@ def main():
 
         x = 0
         for frame_count in range(1,number_of_frames):
-            print("generating frame {}".format(frame_count))
+            print("generating frame {}".format(i))
             x = x + frame_step
             latent_input = latent_vector1.copy()
             for i in range(512):

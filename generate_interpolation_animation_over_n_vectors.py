@@ -33,7 +33,7 @@ def main():
     tflib.init_tf()
 
     seed = 1
-    total_runs = 10
+    total_runs = 4
     number_of_frames = 240
     frame_step = 1.0/number_of_frames
 

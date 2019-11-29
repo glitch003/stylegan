@@ -60,6 +60,11 @@ def main():
         png_filename = os.path.join(output_dir, 'frame_{}.png'.format(i))
         PIL.Image.fromarray(images[0], 'RGB').save(png_filename)
 
+        # prevent memory leak
+        del _G
+        del _D
+        del Gs
+
         i += 1
 
 if __name__ == "__main__":

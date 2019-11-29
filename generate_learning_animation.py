@@ -26,8 +26,8 @@ def main():
     tflib.init_tf()
 
     result_dir = sys.argv[1]
-    
-    pkls = glob.glob(os.path.join(sys.argv[1],"network-snapshot-*.pkl"))
+
+    pkls = glob.glob(os.path.join(result_dir,"network-snapshot-*.pkl"))
     pkls.sort()
 
     seed = 1
@@ -52,13 +52,14 @@ def main():
 
         # Generate image.
         fmt = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
-        images = Gs.run(latents, None, truncation_psi=0.7, randomize_noise=True, output_transform=fmt)
+        images = Gs.run(latents, None, truncation_psi=0.7, randomize_noise=False, output_transform=fmt)
 
         # Save image.
-        os.makedirs('results/generated', exist_ok=True)
-        png_filename = os.path.join('results/generated', 'frame_{}.png'.format(i))
+        output_dir = os.path,join(result_dir, 'generated_learning')
+        os.makedirs(output_dir, exist_ok=True)
+        png_filename = os.path.join(output_dir, 'frame_{}.png'.format(i))
         PIL.Image.fromarray(images[0], 'RGB').save(png_filename)
-        
+
         i += 1
 
 if __name__ == "__main__":

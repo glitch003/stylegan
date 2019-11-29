@@ -515,16 +515,32 @@ def create_from_images(tfrecord_dir, image_dir, shuffle):
         error('Input image resolution must be a power-of-two')
     if channels not in [1, 3]:
         error('Input images must be stored as RGB or grayscale')
+    
+    if channels == 1:
+        print("Warning: running in greyscale mode")
 
     with TFRecordExporter(tfrecord_dir, len(image_filenames)) as tfr:
         order = tfr.choose_shuffled_order() if shuffle else np.arange(len(image_filenames))
+        skipped = 0
         for idx in range(order.size):
             img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
-            if channels == 1:
-                img = img[np.newaxis, :, :] # HW => CHW
-            else:
-                img = img.transpose([2, 0, 1]) # HWC => CHW
-            tfr.add_image(img)
+            print('processing filename: {}'.format(image_filenames[order[idx]]))
+            print("Img has shape {}".format(img.shape))
+            if img.ndim == 3 and img.shape[2] == 4:
+                print("Converting 4 channel image to 3")
+                img = img[...,:3]
+            try:
+                if channels == 1:
+                    img = img[np.newaxis, :, :] # HW => CHW
+                else:
+                    img = img.transpose([2, 0, 1]) # HWC => CHW
+                tfr.add_image(img)
+            except ValueError as e:
+                print("Exception below was handled.")
+                print(repr(e))
+                skipped += 1
+        print("Done.  Skipped {} out of {} total".format(skipped, order.size))
+
 
 #----------------------------------------------------------------------------
 

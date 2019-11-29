@@ -57,11 +57,13 @@ def main():
     latent_vector1 = rnd.randn(1, Gs.input_shape[1])
     latent_vector2 = rnd.randn(1, Gs.input_shape[1])
 
+    total_frames = 1
+
     for i in range(total_runs):
 
         x = 0
         for frame_count in range(1,number_of_frames):
-            print("generating frame {}".format(i))
+            print("generating frame {}".format(total_frames))
             x = x + frame_step
             latent_input = latent_vector1.copy()
             for i in range(512):
@@ -77,10 +79,10 @@ def main():
 
             # Save image.
             os.makedirs('results/generated', exist_ok=True)
-            png_filename = os.path.join('results/generated', 'animation_'+str(i)+'.png')
+            png_filename = os.path.join('results/generated', 'animation_'+str(total_frames)+'.png')
             PIL.Image.fromarray(images[0], 'RGB').save(png_filename)
 
-            i += 1
+            total_frames += 1
 
         latent_vector1 = latent_vector2
         latent_vector2 = rnd.randn(1, Gs.input_shape[1])

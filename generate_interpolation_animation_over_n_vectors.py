@@ -84,7 +84,7 @@ def main():
 
             total_frames += 1
 
-        latent_vector1 = latent_vector2
+        latent_vector1 = latent_vector2.copy()
         latent_vector2 = rnd.randn(1, Gs.input_shape[1])
 
 if __name__ == "__main__":

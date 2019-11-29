@@ -66,12 +66,7 @@ def main():
         for i in range(512):
             f1 = latent_vector1[0][i]
             f2 = latent_vector2[0][i]
-
-            if f1 > f2:
-                tmp = f2
-                f2 = f1
-                f1 = tmp
-            fnew = f1 + (f2-f1)*x
+            fnew = (1.0 - x) * f1 + x * f2
             latent_input[0][i] = fnew
 
         images = Gs.run(latent_input, None, truncation_psi=1, randomize_noise=False, output_transform=fmt)

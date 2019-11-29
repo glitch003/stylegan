@@ -7,6 +7,7 @@
 
 """Minimal script for generating an image using pre-trained StyleGAN generator."""
 
+import sys
 import os
 import pickle
 import numpy as np

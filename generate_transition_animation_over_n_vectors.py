@@ -55,11 +55,17 @@ def main():
     rnd = np.random.RandomState(seed)
 
     latent_vector1 = rnd.randn(1, Gs.input_shape[1])
-    latent_vector2 = rnd.randn(1, Gs.input_shape[1])
+    first_vector_ever = latent_vector1.copy()
 
     total_frames = 1
 
     for i in range(total_runs):
+
+        if i == total_runs - 1:
+            # last run
+            latent_vector2 = first_vector_ever
+        else:
+            latent_vector2 = rnd.randn(1, Gs.input_shape[1])
 
         x = 0
         for frame_count in range(1,number_of_frames):
@@ -81,7 +87,7 @@ def main():
             total_frames += 1
 
         latent_vector1 = latent_vector2.copy()
-        latent_vector2 = rnd.randn(1, Gs.input_shape[1])
+
 
 if __name__ == "__main__":
     main()
